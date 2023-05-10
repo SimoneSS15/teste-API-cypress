@@ -23,3 +23,31 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('token', (email, senha) => { 
+    cy.request({
+        method: 'POST',
+        url: 'login',
+        body: {
+            "email": email,
+            "password": senha
+          }
+    }).then((response) => {// primeiro e feita a requisição e se obtem a resposta, então se valida a mensagem de status code
+        expect(response.status).to.equal(200)
+        return response.body.authorization
+    })
+})
+Cypress.Commands.add('cadastroProduto', (token, produto, preco, descricao, quantidade)=>{
+    cy.request({
+        method: 'POST',
+        url:'produtos',
+        body: {
+            "nome": produto, 
+            "preco": preco,
+            "descricao": descricao,
+            "quantidade": quantidade
+          },
+          headers:{authorization: token},
+          failOnStatusCode: false // vai evitar dar erro no teste
+        })
+})
