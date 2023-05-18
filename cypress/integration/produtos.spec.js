@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-//import contrato from '../contracts/produtos.contract' // importa o que tem no arquivo produtos.contract.js
+import contrato from '../contracts/produtos.contract' // importa o que tem no arquivo produtos.contract.js
 
 describe('Testes da funcionalidade Produtos', () => {
     let token // variável
@@ -7,7 +7,7 @@ describe('Testes da funcionalidade Produtos', () => {
         cy.token('fulano@qa.com', 'teste').then(tkn =>{token = tkn})
     });
     
-    it('Deve validar contrato de produtos', () => {
+    it.only('Deve validar contrato de produtos', () => {
         cy.request ('produtos').then(response =>{ // método GET
             return contrato.validateAsync(response.body)
         })
@@ -26,7 +26,7 @@ describe('Testes da funcionalidade Produtos', () => {
         })
     });
 
-    it.only('Cadastrar produto', () => {
+    it('Cadastrar produto', () => {
         let produto = `Produto EBAC ${Math.floor(Math.random() * 100000000)}` // função matemática que gera produtos
         cy.request({
             method: 'POST',
