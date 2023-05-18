@@ -6,6 +6,7 @@ const produtosSchema = Joi.object({ // constante que contem os parametros dos pr
     nome: Joi.string(),
     preco: Joi.number(),
     descricao: Joi.string(),
+    quantidade: Joi.number(),
     _id: Joi.string()
  })
 })
